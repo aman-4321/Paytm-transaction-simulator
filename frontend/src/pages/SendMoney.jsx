@@ -1,12 +1,47 @@
 import { useSearchParams } from "react-router-dom";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export const SendMoney = () => {
   const [searchParams] = useSearchParams();
   const id = searchParams.get("id");
   const name = searchParams.get("name");
   const [amount, setAmount] = useState(0);
+  const [balance, setBalance] = useState(null);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3000/api/v1/account/balance", {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      })
+      .then((response) => {
+        setBalance(response.data.balance);
+      })
+      .catch((error) => {
+        console.error("Error while fetching", error);
+      });
+  }, []);
+
+  const initiateTransfer = () => {
+    if (balance !== null && amount > balance) {
+      alert("You don't have enough money to make transfer");
+    } else {
+      axios.post(
+        "http://localhost:3000/api/v1/account/transfer",
+        {
+          to: id,
+          amount,
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        },
+      );
+    }
+  };
 
   return (
     <div className="flex justify-center h-screen bg-gray-100">
@@ -43,21 +78,7 @@ export const SendMoney = () => {
                 />
               </div>
               <button
-                onClick={() => {
-                  axios.post(
-                    "http://localhost:3000/api/v1/account/transfer",
-                    {
-                      to: id,
-                      amount,
-                    },
-                    {
-                      headers: {
-                        Authorization:
-                          "Bearer " + localStorage.getItem("token"),
-                      },
-                    },
-                  );
-                }}
+                onClick={initiateTransfer}
                 className="justify-center rounded-md text-sm font-medium ring-offset-background transition-colors h-10 px-4 py-2 w-full bg-green-500 text-white"
               >
                 Initiate Transfer

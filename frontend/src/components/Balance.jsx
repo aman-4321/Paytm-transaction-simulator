@@ -7,8 +7,14 @@ export const Balance = () => {
 
   useEffect(() => {
     const fetchBalance = async () => {
+      const token = localStorage.getItem("token");
+
+      if (!token) {
+        setBalance("0");
+        setLoading(false);
+        return;
+      }
       try {
-        const token = localStorage.getItem("token");
         const response = await axios.get(
           "http://localhost:3000/api/v1/account/balance",
           {

@@ -1,5 +1,4 @@
-import "./App.css";
-import { Routes, BrowserRouter, Route } from "react-router-dom";
+import { Routes, BrowserRouter, Route, Navigate } from "react-router-dom";
 import { Signup } from "./pages/Signup";
 import { Signin } from "./pages/Signin";
 import { Dashboard } from "./pages/Dashboard";
@@ -12,6 +11,7 @@ function App() {
         <Route path="/signin" element={<Signin />}></Route>
         <Route path="/dashboard" element={<Dashboard />}></Route>
         <Route path="/send" element={<SendMoney />}></Route>
+        <Route path="/" element={<Navigate to="/signup" />}></Route>
       </Routes>
     </BrowserRouter>
   );
