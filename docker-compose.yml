@@ -1,0 +1,27 @@
+services:
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongodb
+
+  mongodb:
+    image: mongo:latest # Use the official MongoDB image from Docker Hub
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db # Use a named volume named 'mongodb_data'
+
+volumes:
+  mongodb_data: # Define the volume 'mongodb_data'
+    name: paytm-mongo-data
