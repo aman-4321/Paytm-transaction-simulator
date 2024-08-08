@@ -3,11 +3,14 @@ FROM node:20-alpine
 WORKDIR /app
 
 COPY package*.json ./
-
 RUN npm install
 
 COPY . .
 
-EXPOSE 5173
+RUN npm run build
 
-CMD [ "npm", "run", "dev" ]
+RUN npm install -g serve
+
+EXPOSE 3000
+
+CMD [ "serve", "-s", "dist" ]
