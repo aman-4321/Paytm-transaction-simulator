@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-mongoose.connect(process.env.MONGODB_URL);
+import mongoose from "mongoose";
+mongoose.connect(process.env.MONGODB_URL || "");
 
 const userSchema = new mongoose.Schema({
   username: {
@@ -46,10 +46,5 @@ const accountSchema = new mongoose.Schema({
   },
 });
 
-const Account = mongoose.model("Account", accountSchema);
-const User = mongoose.model("User", userSchema);
-
-module.exports = {
-  User,
-  Account,
-};
+export const Account = mongoose.model("Account", accountSchema);
+export const User = mongoose.model("User", userSchema);

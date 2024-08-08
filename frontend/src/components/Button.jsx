@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 export function Button({ label, onClick }) {
   return (
     <button
@@ -9,3 +11,8 @@ export function Button({ label, onClick }) {
     </button>
   );
 }
+
+Button.propTypes = {
+  label: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
+};

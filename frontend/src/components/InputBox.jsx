@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 export function InputBox({ label, placeholder, onChange }) {
   return (
     <div>
@@ -10,3 +12,13 @@ export function InputBox({ label, placeholder, onChange }) {
     </div>
   );
 }
+
+InputBox.propTypes = {
+  label: PropTypes.string.isRequired,
+  placeholder: PropTypes.string,
+  onChange: PropTypes.func.isRequired,
+};
+
+InputBox.defaultProps = {
+  placeholder: "",
+};
