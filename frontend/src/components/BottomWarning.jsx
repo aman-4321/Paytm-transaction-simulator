@@ -1,19 +1,15 @@
-import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
 export function BottomWarning({ label, buttonText, to }) {
   return (
-    <div className="py-2 text-sm flex justify-center">
-      <div>{label}</div>
-      <Link className="pointer underline pl-1 cursor-pointer" to={to}>
+    <div className="py-4 text-sm flex justify-center items-center">
+      <div className="text-gray-700">{label}</div>
+      <Link
+        className="underline pl-1 text-indigo-600 hover:text-indigo-800"
+        to={to}
+      >
         {buttonText}
       </Link>
     </div>
   );
 }
-
-BottomWarning.propTypes = {
-  label: PropTypes.string.isRequired,
-  buttonText: PropTypes.string.isRequired,
-  to: PropTypes.string.isRequired,
-};

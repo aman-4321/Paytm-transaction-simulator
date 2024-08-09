@@ -39,9 +39,14 @@ export const Balance = () => {
   }
 
   return (
-    <div className="flex">
-      <div className="font-bold text-lg">Your balance</div>
-      <div className="font-semibold ml-4 text-lg">Rs {balance}</div>
+    <div className="bg-white p-6 rounded-lg shadow-md text-center">
+      <div className="font-bold text-2xl text-blue-600">Your Balance</div>
+      <div className="font-semibold text-3xl mt-4 text-gray-800">
+        Rs {balance}
+      </div>
+      <div className="text-sm text-gray-500 mt-2">
+        Available balance in your account
+      </div>
     </div>
   );
 };

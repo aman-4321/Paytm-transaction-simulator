@@ -1,39 +1,47 @@
-import { useEffect, useState } from "react";
-import { Button } from "./Button";
 import axios from "axios";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import PropTypes from "prop-types";
+
 export const Users = () => {
   const [users, setUsers] = useState([]);
   const [filter, setFilter] = useState("");
 
   useEffect(() => {
+    console.log("Fetching users with filter:", filter);
     axios
-      .get("http://localhost:3000/api/v1/user/bulk?filter=" + filter)
+      .get(`http://localhost:3000/api/v1/user/bulk?filter=${filter}`)
       .then((response) => {
-        setUsers(response.data.user);
+        console.log("Response data:", response.data);
+        setUsers(response.data.users || []);
+        console.log("Users state after update:", response.data.users || []);
+      })
+      .catch((error) => {
+        console.error("Error fetching users:", error);
       });
   }, [filter]);
 
   return (
-    <>
-      <div className="font-bold mt-6 text-lg">Users</div>
-      <div className="my-2">
+    <div>
+      <div className="font-bold mt-6 text-xl">Users</div>
+      <div className="my-4">
         <input
           onChange={(e) => {
+            console.log("Filter set to:", e.target.value);
             setFilter(e.target.value);
           }}
           type="text"
           placeholder="Search users..."
-          className="w-full px-2 py-1 border rounded border-slate-200"
-        ></input>
+          className="w-full px-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring focus:border-blue-300"
+        />
       </div>
-      <div>
-        {users.map((user) => (
-          <User key={user._id} user={user} />
-        ))}
+      <div className="space-y-4">
+        {users.length > 0 ? (
+          users.map((user) => <User key={user._id} user={user} />)
+        ) : (
+          <div className="text-gray-600">No users found</div>
+        )}
       </div>
-    </>
+    </div>
   );
 };
 
@@ -41,36 +49,26 @@ function User({ user }) {
   const navigate = useNavigate();
 
   return (
-    <div className="flex justify-between">
-      <div className="flex">
-        <div className="rounded-full h-12 w-12 bg-slate-200 flex justify-center mt-1 mr-2">
-          <div className="flex flex-col justify-center h-full text-xl">
-            {user.firstName[0]}
-          </div>
+    <div className="flex justify-between items-center p-4 bg-white rounded-lg shadow-md">
+      <div className="flex items-center">
+        <div className="rounded-full h-12 w-12 bg-blue-100 flex justify-center items-center mr-4 text-blue-600 text-xl font-bold">
+          {user.firstName[0]}
         </div>
-        <div className="flex flex-col justify-center h-full">
-          <div>
-            {user.firstName} {user.lastName}
-          </div>
+        <div className="text-lg">
+          {user.firstName} {user.lastName}
         </div>
       </div>
 
-      <div className="flex flex-col justify-center h-full">
-        <Button
+      <div>
+        <button
           onClick={() => {
             navigate("/send?id=" + user._id + "&name=" + user.firstName);
           }}
-          label={"Send Money"}
-        />
+          className="bg-blue-500 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-600 transition"
+        >
+          Send Money
+        </button>
       </div>
     </div>
   );
 }
-
-User.propTypes = {
-  user: PropTypes.shape({
-    _id: PropTypes.string.isRequired,
-    firstName: PropTypes.string.isRequired,
-    lastName: PropTypes.string.isRequired,
-  }).isRequired,
-};

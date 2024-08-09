@@ -1,4 +1,4 @@
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
@@ -8,6 +8,7 @@ export const SendMoney = () => {
   const name = searchParams.get("name");
   const [amount, setAmount] = useState(0);
   const [balance, setBalance] = useState(null);
+  const navigate = useNavigate(); // Hook for navigation
 
   useEffect(() => {
     axios
@@ -20,26 +21,35 @@ export const SendMoney = () => {
         setBalance(response.data.balance);
       })
       .catch((error) => {
-        console.error("Error while fetching", error);
+        console.error("Error while fetching balance", error);
       });
   }, []);
 
   const initiateTransfer = () => {
     if (balance !== null && amount > balance) {
-      alert("You don't have enough money to make transfer");
+      alert("You don't have enough money to make the transfer.");
     } else {
-      axios.post(
-        "http://localhost:3000/api/v1/account/transfer",
-        {
-          to: id,
-          amount,
-        },
-        {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
+      axios
+        .post(
+          "http://localhost:3000/api/v1/account/transfer",
+          {
+            to: id,
+            amount,
           },
-        },
-      );
+          {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          },
+        )
+        .then((response) => {
+          alert("Transfer was successful!"); // Alert the user
+          navigate("/dashboard"); // Redirect to the dashboard page
+        })
+        .catch((error) => {
+          console.error("Error during the transfer:", error);
+          alert("An error occurred while processing the transfer.");
+        });
     }
   };
 

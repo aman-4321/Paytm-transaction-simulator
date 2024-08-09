@@ -1,24 +1,15 @@
-import PropTypes from "prop-types";
-
-export function InputBox({ label, placeholder, onChange }) {
+export function InputBox({ label, placeholder, onChange, type = "text" }) {
   return (
-    <div>
-      <div className="text-sm font-medium text-left py-2">{label}</div>
+    <div className="mb-4">
+      <div className="text-sm font-medium text-left py-1 text-gray-700">
+        {label}
+      </div>
       <input
+        type={type}
         onChange={onChange}
         placeholder={placeholder}
-        className="w-full px-2 py-1 border rounded border-slate-200"
+        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
       />
     </div>
   );
 }
-
-InputBox.propTypes = {
-  label: PropTypes.string.isRequired,
-  placeholder: PropTypes.string,
-  onChange: PropTypes.func.isRequired,
-};
-
-InputBox.defaultProps = {
-  placeholder: "",
-};
