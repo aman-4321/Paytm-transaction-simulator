@@ -32,12 +32,7 @@ A full-stack application that simulates financial transactions between users. Bu
    docker-compose up
    ```
 
-3. **Access the Application:**
-
-   - Frontend: [http://localhost:3001](http://localhost:3001)
-   - Backend API: [http://localhost:3000](http://localhost:3000)
-
-4. **Stop Containers:**
+3. **Stop Containers:**
 
    ```bash
    docker-compose down
@@ -108,4 +103,3 @@ A full-stack application that simulates financial transactions between users. Bu
 4. **Access the Application:**
 
    - Frontend: [http://localhost:3001](http://localhost:3001)
-   - Backend API: [http://localhost:3000](http://localhost:3000)
