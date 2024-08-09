@@ -29,6 +29,7 @@ A full-stack application that simulates financial transactions between users. Bu
 2. **Build and Start Containers:**
 
    ```bash
+   get a Mongodb url and put it in docker-compose file
    docker-compose up
    ```
 
