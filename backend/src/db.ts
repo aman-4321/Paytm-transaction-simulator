@@ -1,5 +1,15 @@
 import mongoose from "mongoose";
-mongoose.connect(process.env.MONGODB_URL || "");
+
+const mongodbUrl = process.env.MONGODB_URL;
+
+if (!mongodbUrl) {
+  throw new Error("MONGODB_URL environment variable is not set");
+}
+
+mongoose
+  .connect(mongodbUrl)
+  .then(() => console.log("MongoDB connected"))
+  .catch((err) => console.error("Error connecting to MongoDB:", err));
 
 const userSchema = new mongoose.Schema({
   username: {

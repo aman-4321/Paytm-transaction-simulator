@@ -6,9 +6,9 @@ export const SendMoney = () => {
   const [searchParams] = useSearchParams();
   const id = searchParams.get("id");
   const name = searchParams.get("name");
-  const [amount, setAmount] = useState(0);
+  const [amount, setAmount] = useState("");
   const [balance, setBalance] = useState(null);
-  const navigate = useNavigate(); // Hook for navigation
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
@@ -26,7 +26,7 @@ export const SendMoney = () => {
   }, []);
 
   const initiateTransfer = () => {
-    if (balance !== null && amount > balance) {
+    if (balance !== null && parseFloat(amount) > balance) {
       alert("You don't have enough money to make the transfer.");
     } else {
       axios
@@ -34,7 +34,7 @@ export const SendMoney = () => {
           "http://localhost:3000/api/v1/account/transfer",
           {
             to: id,
-            amount,
+            amount: parseFloat(amount),
           },
           {
             headers: {
@@ -43,8 +43,8 @@ export const SendMoney = () => {
           },
         )
         .then((response) => {
-          alert("Transfer was successful!"); // Alert the user
-          navigate("/dashboard"); // Redirect to the dashboard page
+          alert("Transfer was successful!");
+          navigate("/dashboard");
         })
         .catch((error) => {
           console.error("Error during the transfer:", error);
@@ -54,47 +54,39 @@ export const SendMoney = () => {
   };
 
   return (
-    <div className="flex justify-center h-screen bg-gray-100">
-      <div className="h-full flex flex-col justify-center">
-        <div className="border h-min text-card-foreground max-w-md p-4 space-y-8 w-96 bg-white shadow-lg rounded-lg">
-          <div className="flex flex-col space-y-1.5 p-6">
-            <h2 className="text-3xl font-bold text-center">Send Money</h2>
+    <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-blue-400 to-slate-300 p-4">
+      <div className="w-full max-w-md bg-white rounded-lg shadow-lg p-6">
+        <h2 className="text-3xl font-bold text-gray-800 text-center mb-6">
+          Send Money
+        </h2>
+        <div className="flex items-center justify-center mb-6">
+          <div className="w-16 h-16 bg-blue-600 text-white text-2xl font-bold rounded-full flex items-center justify-center">
+            {name ? name[0].toUpperCase() : ""}
           </div>
-          <div className="p-6">
-            <div className="flex items-center space-x-4">
-              <div className="w-12 h-12 rounded-full bg-green-500 flex items-center justify-center">
-                <span className="text-2xl text-white">
-                  {name && name.length > 0 ? name[0].toUpperCase() : ""}
-                </span>
-              </div>
-              <h3 className="text-2xl font-semibold">{name}</h3>
-            </div>
-            <div className="space-y-4">
-              <div className="space-y-2">
-                <label
-                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                  htmlFor="amount"
-                >
-                  Amount (in Rs)
-                </label>
-                <input
-                  onChange={(e) => {
-                    setAmount(e.target.value);
-                  }}
-                  type="number"
-                  className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
-                  id="amount"
-                  placeholder="Enter amount"
-                />
-              </div>
-              <button
-                onClick={initiateTransfer}
-                className="justify-center rounded-md text-sm font-medium ring-offset-background transition-colors h-10 px-4 py-2 w-full bg-green-500 text-white"
-              >
-                Initiate Transfer
-              </button>
-            </div>
+          <h3 className="text-2xl font-semibold text-gray-800 ml-4">{name}</h3>
+        </div>
+        <div className="space-y-4">
+          <div>
+            <label
+              className="block text-sm font-medium text-gray-700 mb-1"
+              htmlFor="amount"
+            >
+              Amount (in Rs)
+            </label>
+            <input
+              onChange={(e) => setAmount(e.target.value)}
+              type="number"
+              className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
+              id="amount"
+              placeholder="Enter amount"
+            />
           </div>
+          <button
+            onClick={initiateTransfer}
+            className="w-full py-3 px-4 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            Initiate Transfer
+          </button>
         </div>
       </div>
     </div>

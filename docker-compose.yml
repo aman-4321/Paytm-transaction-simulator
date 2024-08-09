@@ -1,27 +1,19 @@
 services:
-  frontend:
-    build:
-      context: ./frontend
-    ports:
-      - "5173:5173"
-    depends_on:
-      - backend
-
   backend:
     build:
       context: ./backend
+    environment:
+      - MONGODB_URL=MONGO_CLUSTER_URL
+    container_name: backend
     ports:
       - "3000:3000"
-    depends_on:
-      - mongodb
+    dns:
+      - 8.8.8.8
+      - 8.8.4.5
 
-  mongodb:
-    image: mongo:latest
+  frontend:
+    build:
+      context: ./frontend
+    container_name: frontend
     ports:
-      - "27017:27017"
-    volumes:
-      - mongodb_data:/data/db
-
-volumes:
-  mongodb_data:
-    name: paytm-mongo-data
+      - "3001:3001"
