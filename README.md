@@ -28,10 +28,11 @@ A full-stack application that simulates financial transactions between users. Bu
 
 2. **Build and Start Containers:**
 
-   ```bash
-   get a Mongodb url and put it in docker-compose file
-   docker-compose up
-   ```
+- Get a Mongodb url from it's website and put it in docker-compose file
+
+  ```bash
+  docker-compose up
+  ```
 
 3. **Stop Containers:**
 
@@ -44,7 +45,7 @@ A full-stack application that simulates financial transactions between users. Bu
 1. **Clone the Repository:**
 
    ```bash
-   git clone https://github.com/your-username/paytm-transaction-simulator.git
+   git clone https://github.com/aman-4321/paytm-transaction-simulator.git
    cd paytm-transaction-simulator
    ```
 
@@ -86,7 +87,7 @@ A full-stack application that simulates financial transactions between users. Bu
    - Navigate to the frontend directory:
 
      ```bash
-     cd ../frontend
+     cd frontend
      ```
 
    - Install dependencies:
