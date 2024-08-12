@@ -11,6 +11,12 @@ export const SendMoney = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      navigate("/signup");
+      return;
+    }
     axios
       .get("http://localhost:3000/api/v1/account/balance", {
         headers: {
@@ -23,7 +29,7 @@ export const SendMoney = () => {
       .catch((error) => {
         console.error("Error while fetching balance", error);
       });
-  }, []);
+  }, [navigate]);
 
   const initiateTransfer = () => {
     if (balance !== null && parseFloat(amount) > balance) {

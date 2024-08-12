@@ -12,7 +12,7 @@ export const Dashboard = () => {
     const token = localStorage.getItem("token");
 
     if (!token) {
-      navigate("/signin");
+      navigate("/signup");
     }
   }, [navigate]);
 
