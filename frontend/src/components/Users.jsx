@@ -9,7 +9,9 @@ export const Users = () => {
   useEffect(() => {
     console.log("Fetching users with filter:", filter);
     axios
-      .get(`http://localhost:3000/api/v1/user/bulk?filter=${filter}`)
+      .get(
+        `${import.meta.env.VITE_BACKEND_URL}/api/v1/user/bulk?filter=${filter}`,
+      )
       .then((response) => {
         console.log("Response data:", response.data);
         setUsers(response.data.users || []);

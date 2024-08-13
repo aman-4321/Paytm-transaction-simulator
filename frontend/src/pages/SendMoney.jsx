@@ -18,7 +18,7 @@ export const SendMoney = () => {
       return;
     }
     axios
-      .get("http://localhost:3000/api/v1/account/balance", {
+      .get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/account/balance`, {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),
         },
@@ -37,7 +37,7 @@ export const SendMoney = () => {
     } else {
       axios
         .post(
-          "http://localhost:3000/api/v1/account/transfer",
+          `${import.meta.env.VITE_BACKEND_URL}/api/v1/account/transfer`,
           {
             to: id,
             amount: parseFloat(amount),

@@ -16,7 +16,7 @@ export const Balance = () => {
       }
       try {
         const response = await axios.get(
-          "http://localhost:3000/api/v1/account/balance",
+          `${import.meta.env.VITE_BACKEND_URL}/api/v1/account/balance`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
