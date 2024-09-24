@@ -12,7 +12,7 @@ import { LogOut, User } from "lucide-react";
 
 export const Appbar: React.FC = () => {
   const navigate = useNavigate();
-  const [userName, setUserName] = useState<string>("User");
+  const [userName] = useState<string>("User");
 
   const handleLogout = () => {
     localStorage.removeItem("token");
