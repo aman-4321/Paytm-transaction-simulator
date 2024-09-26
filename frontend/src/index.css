@@ -85,3 +85,18 @@
     @apply w-full h-full flex flex-col;
   }
 }
+
+@keyframes gradient-x {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.animate-gradient-x {
+  background-size: 400% 400%;
+  animation: gradient-x 15s ease infinite;
+}

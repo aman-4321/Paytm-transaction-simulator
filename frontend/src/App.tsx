@@ -2,7 +2,7 @@ import { Routes, BrowserRouter, Route, Navigate } from "react-router-dom";
 import { SignIn } from "./pages/Signin";
 import { Dashboard } from "./pages/Dashboard";
 import { SendMoney } from "./pages/SendMoney";
-import { SignUp } from "./pages/Singup";
+import { SignUp } from "./pages/Signup";
 function App() {
   return (
     <BrowserRouter>

@@ -83,8 +83,10 @@ const ParticleAnimation: React.FC = () => {
   return <canvas id="particle-canvas" className="absolute inset-0 z-0" />;
 };
 
-export const SignIn: React.FC = () => {
-  const [email, setEmail] = useState<string>("");
+export const SignUp: React.FC = () => {
+  const [firstName, setFirstName] = useState<string>("");
+  const [lastName, setLastName] = useState<string>("");
+  const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string>("");
   const navigate = useNavigate();
@@ -93,16 +95,18 @@ export const SignIn: React.FC = () => {
     event.preventDefault();
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/api/v1/user/signin`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/v1/user/signup`,
         {
-          username: email,
-          password: password,
+          username,
+          firstName,
+          lastName,
+          password,
         },
       );
       localStorage.setItem("token", response.data.token);
       navigate("/dashboard");
     } catch (error) {
-      setError("Failed to sign in. Please check your credentials.");
+      setError("Failed to sign up. Please try again.");
     }
   };
 
@@ -114,22 +118,44 @@ export const SignIn: React.FC = () => {
         <Card className="w-full backdrop-blur-sm bg-white/70">
           <CardHeader>
             <CardTitle className="text-2xl font-bold text-center">
-              Sign In
+              Sign Up
             </CardTitle>
             <CardDescription className="text-center">
-              Enter your credentials to access your account
+              Enter your information to create an account
             </CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="firstName">First Name</Label>
+                  <Input
+                    id="firstName"
+                    placeholder="John"
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="lastName">Last Name</Label>
+                  <Input
+                    id="lastName"
+                    placeholder="Doe"
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                    required
+                  />
+                </div>
+              </div>
               <div className="space-y-2">
                 <Label htmlFor="email">Email</Label>
                 <Input
                   id="email"
                   type="email"
                   placeholder="johndoe@example.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
                   required
                 />
               </div>
@@ -150,18 +176,18 @@ export const SignIn: React.FC = () => {
                 </Alert>
               )}
               <Button type="submit" className="w-full">
-                Sign In
+                Sign Up
               </Button>
             </form>
           </CardContent>
           <CardFooter className="flex justify-center">
             <p className="text-sm text-muted-foreground">
-              Don't have an account?{" "}
+              Already have an account?{" "}
               <Link
-                to="/signup"
+                to="/signin"
                 className="font-medium text-primary hover:underline"
               >
-                Sign up
+                Sign in
               </Link>
             </p>
           </CardFooter>
