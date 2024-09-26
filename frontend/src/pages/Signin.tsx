@@ -108,7 +108,7 @@ export const SignIn: React.FC = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4 overflow-hidden relative">
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-100 via-sky-100 to-purple-100 animate-gradient-x"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-gray-700 via-gray-900 to-black animate-gradient-x"></div>
       <ParticleAnimation />
       <div className="relative z-10 w-full max-w-md">
         <Card className="w-full backdrop-blur-sm bg-white/70">
