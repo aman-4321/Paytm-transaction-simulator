@@ -23,7 +23,7 @@ export const SpecialOffer: React.FC = () => {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <p className="text-2xl font-bold">
+        <p className="text-2xl font-bold ">
           Get 5% cashback on your next transaction
         </p>
         <p className="mt-2 text-blue-100">
