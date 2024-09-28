@@ -113,6 +113,7 @@ export const SendMoney: React.FC = () => {
               )}
             </div>
           </div>
+
           <div className="space-y-2">
             <Label htmlFor="amount">Amount (in ₹)</Label>
             <Input
