@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -13,7 +13,7 @@ interface User {
   lastName: string;
 }
 
-export const Users: React.FC = () => {
+export const Users = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [filter, setFilter] = useState<string>("");
   const navigate = useNavigate();
