@@ -26,7 +26,7 @@ app.use(limiter);
 app.use(express.json());
 
 app.use("/api/v1", rootRouter);
-app.use("/health", (req: Request, res: Response) => {
+app.get("/health", (req: Request, res: Response) => {
   res.status(200).json({
     status: "ok",
   });
